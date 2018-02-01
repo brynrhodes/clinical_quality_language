@@ -16,7 +16,7 @@ parameter "Measurement Period" Interval<DateTime>
 context Patient
 
 define "Office Visit Encounter":
-  ["Encounter, Performed": "Office Visit"] Encounter
+  from ["Encounter, Performed": "Office Visit"] Encounter
     where Encounter.relevantPeriod during "Measurement Period"
 
 define "Male Patient":
@@ -24,17 +24,17 @@ define "Male Patient":
 
 // NOTE: The latest version of the MAT includes support for CQL 1.2, so this comparison:
 //define "Prostate Cancer Diagnosis":
-//  ["Diagnosis": "Prostate Cancer"] ProstateCancerDx
+//  from ["Diagnosis": "Prostate Cancer"] ProstateCancerDx
 //    where ProstateCancerDx.prevalencePeriod starts before end "Measurement Period"
 //      or ProstateCancerDx.prevalencePeriod starts same as end "Measurement Period"
 
 // Can now be expressed using the "on or before" syntax:
 define "Prostate Cancer Diagnosis":
-  ["Diagnosis": "Prostate Cancer"] ProstateCancerDx
+  from ["Diagnosis": "Prostate Cancer"] ProstateCancerDx
     where ProstateCancerDx.prevalencePeriod starts on or before end "Measurement Period"
 
 define "Active Medications for Androgen deprivation therapy for Urology Care":
-  ["Medication, Active": "Androgen deprivation therapy for Urology Care"] ADT
+  from ["Medication, Active": "Androgen deprivation therapy for Urology Care"] ADT
     with "Prostate Cancer Diagnosis" ProstateCancerDx // comments within a clause
       such that /* mulit-line within a line */ ADT.relevantPeriod starts on or after start ProstateCancerDx.prevalencePeriod
     with ["Procedure, Order": "Injection Leuprolide Acetate"] ADTOrder /* multi-line comments
@@ -52,7 +52,7 @@ define "Active Medications for Androgen deprivation therapy for Urology Care":
 
 define "Androgen Deprivation Therapy":
   {
-    First("Active Medications for Androgen deprivation therapy for Urology Care" ADT
+    First(from "Active Medications for Androgen deprivation therapy for Urology Care" ADT
         sort by start of relevantPeriod
     )
   }

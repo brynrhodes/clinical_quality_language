@@ -9,6 +9,6 @@ context Patient
 define "Test":
 	// some coment here
 	 exists (
-		 ["Laboratory Test, Performed"]E
+		 from ["Laboratory Test, Performed"]E
 		 	where E.result > @2016-05-06
 	 )

@@ -4,10 +4,10 @@ define "Singular Source": Tuple { id: 1, name: 'John Doe' }
 define "Plural Source": List { "Singular Source" }
 
 define "Singular Source Query":
-  "Singular Source" X where X.id = 1
+  from "Singular Source" X where X.id = 1
 
 define "Plural Source Query":
-  "Plural Source" X where X.id = 1
+  from "Plural Source" X where X.id = 1
   
 define "Singular Multiple Source Query":
   from "Singular Source" S1, "Singular Source" S2
@@ -31,15 +31,15 @@ define "Mixed Multiple Source Query With Return":
   return S
 
 define "Singular Source With Plural Relationship":
-  "Singular Source" S
+  from "Singular Source" S
     with "Plural Source" P such that S.id = P.id
 
 define "Plural Source With Singular Relationship":
-  "Plural Source" P
+  from "Plural Source" P
     with "Singular Source" S such that P.id = S.id
 
 define "Singular Source With Plural Relationship And Return":
-  "Singular Source" S
+  from "Singular Source" S
     with "Plural Source" P such that S.id = P.id
   return S
 

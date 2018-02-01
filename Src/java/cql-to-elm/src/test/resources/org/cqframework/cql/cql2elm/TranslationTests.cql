@@ -38,7 +38,7 @@ define TypedHasNull: Count(List<Integer> { 1, null, null, null, 2 })
 define TypedEmpty: Count(List<Integer> { })
 
 define NestedLet:
-  ({ { id: 1, value: 10 }, { id: 2, value: 20 } }) X
+  from { { id: 1, value: 10 }, { id: 2, value: 20 } } X
     let
       A: (X.value * 10),
       B: A * 10

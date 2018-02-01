@@ -13,6 +13,6 @@ define "Test":
 			and one more
 		 */
 	  exists (
-			["Laboratory Test, Performed"]E
+			from ["Laboratory Test, Performed"]E
 				where E.result > @2016-05-06
 		)

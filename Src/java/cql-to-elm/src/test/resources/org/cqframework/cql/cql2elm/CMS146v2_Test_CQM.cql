@@ -22,16 +22,16 @@ define Antibiotics:
     [MedicationPrescription: "Antibiotic Medications"]
 
 define TargetEncounters:
-    [Encounter: "Ambulatory/ED Visit"] E
+    from [Encounter: "Ambulatory/ED Visit"] E
         with Pharyngitis P such that Interval[P.onsetDateTime, P.abatementDate] overlaps after E.period
         with Antibiotics A such that A.dateWritten 3 days or less after start of E.period
         where E.period during MeasurementPeriod
 
 define TargetDiagnoses:
-    Pharyngitis P with TargetEncounters E such that Interval[P.onsetDateTime, P.abatementDate] overlaps after E.period
+    from Pharyngitis P with TargetEncounters E such that Interval[P.onsetDateTime, P.abatementDate] overlaps after E.period
 
 define HasPriorAntibiotics:
-    exists (Antibiotics A with TargetDiagnoses D such that A.dateWritten 30 days or less before D.onsetDateTime)
+    exists (from Antibiotics A with TargetDiagnoses D such that A.dateWritten 30 days or less before D.onsetDateTime)
 
 define HasTargetEncounter:
     exists (TargetEncounters)
@@ -46,4 +46,4 @@ define InDenominatorExclusions:
     HasPriorAntibiotics
 
 define InNumerator:
-    exists ([Observation: "Group A Streptococcus Test"] R where R.issued during MeasurementPeriod and R.valueQuantity is not null)
+    exists (from [Observation: "Group A Streptococcus Test"] R where R.issued during MeasurementPeriod and R.valueQuantity is not null)

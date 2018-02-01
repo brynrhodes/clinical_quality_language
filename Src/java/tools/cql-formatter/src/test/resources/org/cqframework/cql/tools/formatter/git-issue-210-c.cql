@@ -10,7 +10,7 @@ parameter "Measurement Period" Interval<DateTime>
 context Patient
 
 define "CD4+ Count With Results and Medications 2":
-                ["Medication, Order": "Leucovorin"] MOL
+                from ["Medication, Order": "Leucovorin"] MOL
                                 with ["Medication, Order": "Dapsone and pyrimethamine"] DapsoneOrder
 
                                 // fdafds this statement

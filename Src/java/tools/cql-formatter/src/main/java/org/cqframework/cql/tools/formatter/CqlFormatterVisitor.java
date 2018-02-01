@@ -566,10 +566,10 @@ public class CqlFormatterVisitor extends cqlBaseVisitor {
         return super.visitFunctionBody(ctx);
     }
 
-    @Override
-    public Object visitQuerySource(cqlParser.QuerySourceContext ctx) {
-        return super.visitQuerySource(ctx);
-    }
+    //@Override
+    //public Object visitQuerySource(cqlParser.QuerySourceContext ctx) {
+    //    return super.visitQuerySource(ctx);
+    //}
 
     @Override
     public Object visitAliasedQuerySource(cqlParser.AliasedQuerySourceContext ctx) {
@@ -661,18 +661,20 @@ public class CqlFormatterVisitor extends cqlBaseVisitor {
         return super.visitQuery(ctx);
     }
 
+    //@Override
+    //public Object visitSourceClause(cqlParser.SourceClauseContext ctx) {
+    //    return super.visitSourceClause(ctx);
+    //}
+
+    //@Override
+    //public Object visitSingleSourceClause(cqlParser.SingleSourceClauseContext ctx) {
+    //    return super.visitSingleSourceClause(ctx);
+    //}
+
+    //@Override
+    //public Object visitMultipleSourceClause(cqlParser.MultipleSourceClauseContext ctx) {
     @Override
     public Object visitSourceClause(cqlParser.SourceClauseContext ctx) {
-        return super.visitSourceClause(ctx);
-    }
-
-    @Override
-    public Object visitSingleSourceClause(cqlParser.SingleSourceClauseContext ctx) {
-        return super.visitSingleSourceClause(ctx);
-    }
-
-    @Override
-    public Object visitMultipleSourceClause(cqlParser.MultipleSourceClauseContext ctx) {
         Object result = defaultResult();
         int n = ctx.getChildCount();
         boolean clauseEntered = false;

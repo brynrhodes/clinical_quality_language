@@ -21,7 +21,7 @@ define function ToCode(coding FHIR.Coding):
 
 define function ToConcept(concept FHIR.CodeableConcept):
     System.Concept {
-        codes: concept.coding C return ToCode(C),
+        codes: from concept.coding C return ToCode(C),
         display: concept.text.value
     }
 

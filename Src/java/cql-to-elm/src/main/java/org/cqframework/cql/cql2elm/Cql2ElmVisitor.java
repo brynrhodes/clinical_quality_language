@@ -2796,18 +2796,27 @@ public class Cql2ElmVisitor extends cqlBaseVisitor {
         return retrieve;
     }
 
-    @Override
-    public Object visitSingleSourceClause(@NotNull cqlParser.SingleSourceClauseContext ctx) {
-        List<AliasedQuerySource> sources = new ArrayList<>();
-        sources.add((AliasedQuerySource) visit(ctx.aliasedQuerySource()));
-        return sources;
-    }
+//    @Override
+//    public Object visitSingleSourceClause(@NotNull cqlParser.SingleSourceClauseContext ctx) {
+//        List<AliasedQuerySource> sources = new ArrayList<>();
+//        sources.add((AliasedQuerySource) visit(ctx.aliasedQuerySource()));
+//        return sources;
+//    }
+//
+//    @Override
+//    public Object visitMultipleSourceClause(@NotNull cqlParser.MultipleSourceClauseContext ctx) {
+//        List<AliasedQuerySource> sources = new ArrayList<>();
+//        for (cqlParser.AliasedQuerySourceContext source : ctx.aliasedQuerySource()) {
+//            sources.add((AliasedQuerySource) visit(source));
+//        }
+//        return sources;
+//    }
 
     @Override
-    public Object visitMultipleSourceClause(@NotNull cqlParser.MultipleSourceClauseContext ctx) {
+    public Object visitSourceClause(@NotNull cqlParser.SourceClauseContext ctx) {
         List<AliasedQuerySource> sources = new ArrayList<>();
         for (cqlParser.AliasedQuerySourceContext source : ctx.aliasedQuerySource()) {
-            sources.add((AliasedQuerySource) visit(source));
+            sources.add((AliasedQuerySource)visit(source));
         }
         return sources;
     }
@@ -3149,7 +3158,7 @@ public class Cql2ElmVisitor extends cqlBaseVisitor {
 
     @Override
     public Object visitAliasedQuerySource(@NotNull cqlParser.AliasedQuerySourceContext ctx) {
-        AliasedQuerySource source = of.createAliasedQuerySource().withExpression(parseExpression(ctx.querySource()))
+        AliasedQuerySource source = of.createAliasedQuerySource().withExpression(parseExpression(ctx.expression()))
                 .withAlias(parseString(ctx.alias()));
         source.setResultType(source.getExpression().getResultType());
         return source;
@@ -3268,17 +3277,17 @@ public class Cql2ElmVisitor extends cqlBaseVisitor {
         return of.createSortClause().withBy(sortItems);
     }
 
-    @Override
-    public Object visitQuerySource(@NotNull cqlParser.QuerySourceContext ctx) {
-        if (ctx.expression() != null) {
-            return visit(ctx.expression());
-        } else if (ctx.retrieve() != null) {
-            return visit(ctx.retrieve());
-        } else {
-            List<String> identifiers = (List<String>) visit(ctx.qualifiedIdentifier());
-            return resolveQualifiedIdentifier(identifiers);
-        }
-    }
+//    @Override
+//    public Object visitQuerySource(@NotNull cqlParser.QuerySourceContext ctx) {
+//        if (ctx.expression() != null) {
+//            return visit(ctx.expression());
+//        } else if (ctx.retrieve() != null) {
+//            return visit(ctx.retrieve());
+//        } else {
+//            List<String> identifiers = (List<String>) visit(ctx.qualifiedIdentifier());
+//            return resolveQualifiedIdentifier(identifiers);
+//        }
+//    }
 
     @Override
     public Object visitIndexedExpressionTerm(@NotNull cqlParser.IndexedExpressionTermContext ctx) {

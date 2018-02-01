@@ -8,9 +8,9 @@ library multisource_example
 //
 // This is because a multi-source query returns a cartesion product (as described in the spec).
 define oddsAndEvens:
-  from (List{1, 3}) Odd, (List{2, 4}) Even
+  from List{1, 3} Odd, List{2, 4} Even
 
 // Since the value of Odd in each tuple is an integer (not a list), it should be promoted
 // to a list, or CQL-to-ELM should produce an error.  But... it goes through unscathed!
 define shouldNotBeAllowed:
-  (oddsAndEvens) OE where OE.Odd includes 3
+  from oddsAndEvens OE where OE.Odd includes 3
