@@ -177,12 +177,6 @@ functionBody
  * Expressions
  */
 
-//querySource
-//    : retrieve
-//    | qualifiedIdentifier
-//    | '(' expression ')'
-//    ;
-
 aliasedQuerySource
     : expression alias
     ;
@@ -224,15 +218,6 @@ qualifier
 query
     : sourceClause letClause? queryInclusionClause* whereClause? returnClause? sortClause?
     ;
-
-//sourceClause
-//    : singleSourceClause
-//    | multipleSourceClause
-//    ;
-
-//singleSourceClause
-//    : aliasedQuerySource
-//    ;
 
 sourceClause
     : 'from' aliasedQuerySource (',' aliasedQuerySource)*
